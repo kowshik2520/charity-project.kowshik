@@ -1,0 +1,29 @@
+<!-- src/app/login/login.component.html -->
+<p-card header="Login" class="login-card">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="p-fluid">
+      <div class="p-field">
+        <label for="username">Username</label>
+        <input id="username" type="text" pInputText formControlName="username" placeholder="Enter your username" />
+        <small *ngIf="loginForm.controls['username'].invalid && loginForm.controls['username'].touched" class="p-error">
+          Username is required.
+        </small>
+      </div>
+
+      <div class="p-field">
+        <label for="password">Password</label>
+        <p-password id="password" formControlName="password" placeholder="Enter your password"
+          feedback="false"></p-password>
+        <small *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched" class="p-error">
+          Password is required.
+        </small>
+      </div>
+
+      <div class="p-field" style="padding-top: 10px;">
+        <button pButton type="submit" label="Login" [disabled]="loading" class="p-button-primary"></button>
+      </div>
+
+      <p-messages></p-messages>
+    </div>
+  </form>
+</p-card>

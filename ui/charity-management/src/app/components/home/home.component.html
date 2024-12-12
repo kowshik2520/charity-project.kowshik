@@ -1,0 +1,20 @@
+<!-- Top-right Logout Button -->
+<div class="header">
+    <div class="logout-container">
+        <p-button label="Logout" icon="pi pi-sign-out" routerLink="/login"></p-button>
+    </div>
+</div>
+
+<p-tabView [(activeIndex)]="activeIndex" (onChange)="onTabChange($event)">
+    <p-tabPanel header="Donations">
+        <ng-container *ngIf="activeIndex === 0">
+            <app-dashboard></app-dashboard>
+        </ng-container>
+    </p-tabPanel>
+
+    <p-tabPanel header="Campaigns">
+        <ng-container *ngIf="activeIndex === 1">
+            <app-campaign-management></app-campaign-management>
+        </ng-container>
+    </p-tabPanel>
+</p-tabView>

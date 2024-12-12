@@ -1,0 +1,80 @@
+<p-card>
+    <ng-template pTemplate="header">
+        <div class="header-content">
+            <div><strong>Campaign Management</strong></div>
+            <div class="button-group">
+                <button pButton label="Add Campaign" icon="pi pi-plus" class="p-button-sm"
+                    (click)="showDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+    <p-table [value]="campaigns" styleClass="p-datatable-gridlines" [paginator]="true" [rows]="10"
+        [responsiveLayout]="'scroll'">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Campaign Name</th>
+                <th>Description</th>
+                <th>Target Amount</th>
+                <th>Collected Amount</th>
+                <th>Created Date</th>
+                <th>Actions</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-campaign>
+            <tr>
+                <td>{{ campaign.name }}</td>
+                <td>{{ campaign.description }}</td>
+                <td>{{ campaign.goal_amount | currency }}</td>
+                <td>{{ campaign.reached_amount | currency }}</td>
+                <td>{{ campaign.created_date }}</td>
+                <td>
+                    <button pButton type="button" icon="pi pi-pencil" class="p-button-text p-button-sm"
+                        (click)="editCampaign(campaign)"></button>
+                    <button pButton type="button" icon="pi pi-trash" class="p-button-text p-button-sm p-button-danger"
+                        (click)="deleteCampaign(campaign.id)"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <p-dialog header="Campaign Details" [(visible)]="displayDialog" [style]="{ width: '25rem' }" [modal]="true">
+        <form [formGroup]="campaignForm">
+            <div class="p-fluid">
+                <div class="p-field">
+                    <label for="name">Campaign Name</label>
+                    <input id="name" pInputText formControlName="name" placeholder="Enter campaign name" />
+                    <small class="text-red-500"
+                        *ngIf="campaignForm.controls['name'].invalid && campaignForm.controls['name'].touched">
+                        Campaign name is required (min. 3 characters)
+                    </small>
+                </div>
+
+                <div class="p-field">
+                    <label for="description">Description</label>
+                    <textarea id="description" pInputTextarea formControlName="description"
+                        placeholder="Enter description"></textarea>
+                    <small class="text-red-500"
+                        *ngIf="campaignForm.controls['description'].invalid && campaignForm.controls['description'].touched">
+                        Description is required (min. 10 characters)
+                    </small>
+                </div>
+
+                <div class="p-field">
+                    <label for="goal_amount">Target Amount</label>
+                    <input id="goal_amount" pInputText type="number" formControlName="goal_amount"
+                        placeholder="Enter target amount" />
+                    <small class="text-red-500"
+                        *ngIf="campaignForm.controls['goal_amount'].invalid && campaignForm.controls['goal_amount'].touched">
+                        Target amount must be greater than 0
+                    </small>
+                </div>
+            </div>
+
+            <p-footer class="custom-footer">
+                <p-button label="Save" icon="pi pi-check" (click)="saveCampaign()"></p-button>
+            </p-footer>
+
+        </form>
+    </p-dialog>
+</p-card>

@@ -1,0 +1,31 @@
+.p-fluid .p-field {
+  margin-bottom: 1.5rem; // Adds space between fields
+}
+
+.p-fluid .p-field:last-child {
+  margin-bottom: 0; // Removes margin for the last field
+}
+
+.p-error {
+  font-size: 0.8rem;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.custom-footer {
+  display: flex;
+  justify-content: flex-end; /* Push the button to the right */
+  align-items: flex-end;
+  padding-top: 20px; /* Adds space above the button */
+  padding-right: 10px; /* Adds space to the right */
+  height: 60px; /* Optional: Ensure footer has height */
+}

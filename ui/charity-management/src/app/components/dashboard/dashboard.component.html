@@ -1,0 +1,78 @@
+<p-card>
+  <ng-template pTemplate="header">
+    <div class="header-content">
+      <div><strong>Donations</strong></div>
+      <div class="button-group">
+        <button pButton label="Add Donation" icon="pi pi-plus" class="p-button-sm" (click)="showDialog()"></button>
+      </div>
+    </div>
+  </ng-template>
+
+  <p-table [value]="donations" styleClass="p-datatable-gridlines" [paginator]="true" [rows]="10"
+    [responsiveLayout]="'scroll'" class="p-datatable-striped">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Donor Name</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+        <th>Address</th>
+        <th>Campaign</th>
+        <th>Amount</th>
+        <th>Created Date</th>
+        <th>Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-donation>
+      <tr>
+        <td>{{ donation.donor_name }}</td>
+        <td>{{ donation.email }}</td>
+        <td>{{ donation.phone_number }}</td>
+        <td>{{ donation.address }}</td>
+        <td>{{ getCampaignNameById(donation.campaign_id ?? 0) }}</td>
+        <td>{{ donation.amount | currency }}</td>
+        <td>{{ donation.created_date }}</td>
+        <td>
+          <button pButton type="button" icon="pi pi-pencil" class="p-button-text p-button-sm"
+            (click)="editDonation(donation)"></button>
+          <button pButton type="button" icon="pi pi-trash" class="p-button-text p-button-sm p-button-danger"
+            (click)="deleteDonation(donation)"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <!-- Dialog for Adding Donation -->
+  <p-dialog [(visible)]="displayDialog" header="Add Donation" [style]="{ width: '400px' }" [modal]="true"
+    [closable]="true">
+    <form [formGroup]="donationForm" (ngSubmit)="addDonation()">
+      <div class="p-fluid">
+        <div class="p-field">
+          <label for="name">Donor Name</label>
+          <input id="name" type="text" pInputText formControlName="donor_name" placeholder="Enter Donor Name" />
+        </div>
+        <div class="p-field">
+          <label for="email">Email</label>
+          <input id="email" type="email" pInputText formControlName="email" placeholder="Enter Email" />
+        </div>
+        <div class="p-field">
+          <label for="phone">Phone Number</label>
+          <input id="phone" type="text" pInputText formControlName="phone_number" placeholder="Enter Phone Number" />
+        </div>
+        <div class="p-field">
+          <label for="address">Address</label>
+          <textarea id="address" pInputTextarea formControlName="address" placeholder="Enter Address"></textarea>
+        </div>
+        <div class="p-field">
+          <label for="compaign">Compaign</label>
+          <p-dropdown id="compaign" formControlName="campaign_id" [options]="campaigns" optionLabel="name"
+            optionValue="id" placeholder="Select a Compaign" />
+        </div>
+        <div class="p-field">
+          <label for="amount">Donation Amount</label>
+          <input id="amount" type="Number" pInputText formControlName="amount" placeholder="Enter Amount" />
+        </div>
+        <button pButton type="submit" label="Save" class="p-button-primary" [disabled]="donationForm.invalid"></button>
+      </div>
+    </form>
+  </p-dialog>
+</p-card>

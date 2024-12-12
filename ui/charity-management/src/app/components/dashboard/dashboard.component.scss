@@ -1,0 +1,26 @@
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.logout-button {
+  margin: 0;
+}
+
+.p-fluid .p-field {
+  margin-bottom: 1.5rem; // Adds space between fields
+}
+
+.p-fluid .p-field:last-child {
+  margin-bottom: 0; // Removes margin for the last field
+}
+
+.p-error {
+  font-size: 0.8rem;
+}
